@@ -19,7 +19,7 @@ namespace SigmaLess1
                 DairyProducts d = new DairyProducts("milk", 33, 2, new DateTime(2022, 5, 18));
 
                 //Console.WriteLine(m.ToString());
-                Console.WriteLine(ddfg);
+                Console.WriteLine();
                 //Console.WriteLine("Changing price...");
 
                 //Console.WriteLine("Price after changing: {0}", m.ChangePrice(20));

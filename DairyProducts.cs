@@ -40,7 +40,7 @@ namespace SigmaLess1
             if (!(obj is DairyProducts)) return false;
              return base.Equals((DairyProducts)obj);
             
-        }dfg
+        }
         public override int GetHashCode()
         {
             return base.GetHashCode();

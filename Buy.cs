@@ -19,7 +19,7 @@ namespace SigmaLess1
             _countOfProduct = countOfProduct;
             _totalPrice = totalPrice;
             _totalWeight = totalWeight;
-        }dfg
+        }
         public int CountOfProduct { get;  }
 
         public double TotalPrice

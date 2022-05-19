@@ -23,32 +23,29 @@ namespace SigmaLess1
             Chicken
         }
 
-        public DateTime Date { get; }
         public Category MeatCategory { get; }
         public ProductType Type { get; }
 
         public Meat() : this(null, default, default, default, default, default) { }
-        public Meat(string name, double price, double weight,DateTime date, Category category, ProductType productType) : base(name, price, weight)
+        public Meat(string name, double price, double weight,DateTime date, Category category, ProductType productType) : base(name, price, weight, date)
         {
-            Date = date;
+           
             MeatCategory = category;
             Type = productType;
         }
 
-        public override double IsOverdue(DateTime timeToOverdue, double percent)
+        public override void IsOverdue(DateTime timeToOverdue,ref double percent)
         {
-            if (DateTime.Now > timeToOverdue)
+            if (DateTime.Today > timeToOverdue)
             {
                 percent -= 30;
             }
-            return percent;
+            
         }
         public override double ChangePrice( double percent)
         {
-            IsOverdue(Date,percent);
             if (percent < 0)
-                throw new ArgumentException("Percent must be equal or greater than '0'");
-
+                throw new ArgumentException();
             switch (MeatCategory)
             {
                 case Category.TopGrade:
@@ -61,14 +58,26 @@ namespace SigmaLess1
                     percent += 5;
                     break;
             }
-
+            IsOverdue(Date, ref percent);
             Price = Price + (Price * (percent / 100.0));
             return Price;
 
         }
         public override string ToString()
         {
-            return null;
+            return base.ToString() + string.Format("\nMeat category: {0}\nType of meet: {1}", MeatCategory, Type);
+        }
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Meat m)) return false;
+            else
+            {
+                return base.Equals((Meat)obj) && MeatCategory == m.MeatCategory && Type == m.Type;
+            }
+        }
+        public override int GetHashCode()
+        {
+            return base.GetHashCode() + Tuple.Create(MeatCategory,Type).GetHashCode();
         }
 
     }

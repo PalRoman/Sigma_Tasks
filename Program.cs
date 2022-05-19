@@ -14,22 +14,25 @@ namespace SigmaLess1
         {
             try
             {
-                Meat m = new Meat(Meat.ProductType.Mutton.ToString(), 33, 3.5,DateTime.Parse("17.05.2022"), Meat.Category.TopGrade, Meat.ProductType.Mutton);
-                Console.WriteLine(DateTime.Parse("19.05.2022"));
-                Console.WriteLine("Name of a product: {0}\nPrice: {1}\nWeight: {2}", m.Name, m.Price, m.Weight);
-                Console.WriteLine("Changing price...");
+                Meat m = new Meat(Meat.ProductType.Mutton.ToString(), 33, 3.5, DateTime.Parse("20.05.2022"), Meat.Category.TopGrade, Meat.ProductType.Mutton);
 
-                Console.WriteLine("Price after changing: {0}", m.ChangePrice(20));
+                DairyProducts d = new DairyProducts("milk", 33, 2, new DateTime(2022, 5, 18));
+
+                //Console.WriteLine(m.ToString());
+                Console.WriteLine(d);
+                //Console.WriteLine("Changing price...");
+
+                //Console.WriteLine("Price after changing: {0}", m.ChangePrice(20));
                 Console.ReadLine();
             }
             catch (ArgumentException)
             {
-                throw new ArgumentException();
+                throw new ArgumentException("Percent must be equal or greater than '0'");
             }
-            catch (Exception)
-            {
-                throw new Exception();
-            }
+            //catch (Exception)
+            //{
+            //    throw new Exception();
+            //}
         }
 
 

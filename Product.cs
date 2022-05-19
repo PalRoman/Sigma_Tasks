@@ -6,22 +6,23 @@ using System.Threading.Tasks;
 
 namespace SigmaLess1
 {
-   internal class Product
+   public class Product
     {
         private string _name;
         private double _price;
         private double _weight;
-        
-        public Product():this(null, default, default)
+        private DateTime _date;
+       
+        public Product():this(null, default, default, default)
         { }
         
-        public Product(string name, double price, double weight)
+        public Product(string name, double price, double weight,DateTime date)
         {
    
             Name = name;
             Price = price;
             Weight = weight;
-            
+            Date = date;
         }
         
 
@@ -48,17 +49,26 @@ namespace SigmaLess1
                 _weight = value; 
             }
         }
-        public virtual double IsOverdue(DateTime timeToOverdue, double percent)
+        
+
+        public DateTime Date
         {
-            if (DateTime.Now > timeToOverdue) return percent -= 10;
-            return 0;
+            get { return _date; }
+            set { _date = value; }
+        }
+
+        public virtual void IsOverdue(DateTime timeToOverdue, ref double percent)
+        {
+            if (DateTime.Now > timeToOverdue)  
+                percent -= 10;
+            
 
 
         }
 
         public virtual double ChangePrice( double percent)
         {
-            
+                IsOverdue(Date, ref percent);
                 Price = Price + (Price * (percent / 100.0));
                 return Price;
             
@@ -67,7 +77,24 @@ namespace SigmaLess1
 
         public override string ToString()
         {
-            return Name.ToString() + Price.ToString() + Weight.ToString();
+            return string.Format("Name: {0}\nPrice: {1} UAH\nWeight: {2} kg\nDate: {3}", Name, Weight, Price, Date);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if ((obj == null) || !this.GetType().Equals(obj.GetType())) return false;
+
+            else 
+            {
+                Product p = (Product)obj;
+                return (_name == p._name) && (_price == p._price) && (_weight == p._weight) && (_date == p._date);
+            }
+
+        }
+        public override int GetHashCode()
+        {
+            return Tuple.Create(_name, _price, _weight, _date).GetHashCode();
+
         }
 
         public void Parse(string str)
@@ -85,6 +112,8 @@ namespace SigmaLess1
                 throw new ArgumentException();
             }
         }
+
+        
     }
 }
 

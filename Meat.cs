@@ -74,7 +74,7 @@ namespace SigmaLess1
             {
                 return base.Equals((Meat)obj) && MeatCategory == m.MeatCategory && Type == m.Type;
             }
-        }
+        }dfg
         public override int GetHashCode()
         {
             return base.GetHashCode() + Tuple.Create(MeatCategory,Type).GetHashCode();
